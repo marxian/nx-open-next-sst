@@ -5,6 +5,27 @@
   "projectType": "application",
   "targets": {
     "build": {
+      "executor": "@nx-open-next/nx-open-next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "buildTarget": "web:build-next",
+        "sourceRoot": "apps/web",
+        "packageJson": "{workspaceRoot}/package.json"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "web:build-next:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "web:build-next:production",
+          "dev": false
+        }
+      },
+      "dependsOn": ["build-next"]
+    },
+    "build-next": {
       "executor": "@nx/next:build",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
